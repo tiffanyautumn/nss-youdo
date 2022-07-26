@@ -7,6 +7,23 @@ export const Task = ({getAllTasks, currentUser, taskObject}) => {
     const [isChecked, setIsChecked] = useState(false);
     const [userTasks, updateUserTasks] = useState([])
 
+
+    const checkUserTasks = () => {
+        fetch(`http://localhost:8088/userTasks?_expand=task&taskId=${taskObject.id}&userId=${currentUser.id}`)
+                .then(response => response.json())
+                .then((data) => {
+                    
+                    if(data.length > 0){
+                    setIsChecked(true)
+                    }
+                })
+    }
+    useEffect(
+        () => {
+            checkUserTasks()
+        },
+        []
+    )
   
     const handleClick = (evt) => {
         evt.preventDefault()
@@ -24,24 +41,11 @@ export const Task = ({getAllTasks, currentUser, taskObject}) => {
             body: JSON.stringify(completedtask)
         })
             .then(response => response.json())
-            .then(() => {
-                
-            })
+            .then(()=> {getAllTasks()
+                checkUserTasks()})
     }
     
-    useEffect(
-        () => {
-            fetch(`http://localhost:8088/userTasks?_expand=task&taskId=${taskObject.id}&userId=${currentUser.id}`)
-                .then(response => response.json())
-                .then((data) => {
-                    
-                    if(data.length > 0){
-                    setIsChecked(true)
-                    }
-                })
-        },
-        []
-    )
+  
     return <>
     
     
