@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { React } from 'react'
-import { Card, CardHeader, CardBody, CardTitle, CardText, Button, CardFooter, Row, Col } from 'reactstrap'
+import { Card, CardBody, CardTitle, CardText, Button, Row, Col } from 'reactstrap'
 import { useNavigate } from 'react-router-dom'
 
 export const PlanningHub = () => {
@@ -10,7 +10,7 @@ export const PlanningHub = () => {
         <Row>
             <Card className="my-2" style={{ width: '18rem' }}>
                 <CardBody>
-                    <Button >
+                    <Button onClick={() => navigate("/weddingdetails")}>
                         <CardTitle tag="h5"> Details </CardTitle>
                     </Button>
                     <CardText> </CardText>

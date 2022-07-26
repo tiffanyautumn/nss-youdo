@@ -1,0 +1,24 @@
+.detailTitle {
+    text-align: center;
+}
+
+.partnerName {
+    display: flex;
+    align-items: baseline ;
+}
+
+.venueName {
+    display:flex;
+    align-items: baseline;
+}
+
+.venueSpan {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    
+}
+.weddingDate {
+    display: flex;
+    align-items: baseline;
+}

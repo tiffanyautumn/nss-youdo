@@ -27,10 +27,10 @@ export const NavBar = (args) => {
       <Navbar {...args}>
         <NavbarBrand href="/">You do.</NavbarBrand>
         <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
+        <Collapse className='collapse' isOpen={isOpen} navbar>
           <Nav className="me-auto" navbar>
             <NavItem>
-              <Link className="navbar__link" to="/tasklist">Task List</Link>
+              
             </NavItem>
             <NavItem>
             {
@@ -51,19 +51,22 @@ export const NavBar = (args) => {
               </DropdownToggle>
               <DropdownMenu end>
                 <DropdownItem>
-                  Option 1
+                <Link className="navbar__link" to="/weddingdetails"> Details</Link>
                 </DropdownItem>
-                <DropdownItem>
-                
+                <DropdownItem divider />
+                <DropdownItem >
+                <Link className="navbar__link" to="/tasklist">Task List</Link>
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
-                  Reset
+                  <Link className='navbar_link' to="/budget">Budget</Link>
                 </DropdownItem>
+                
+              
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText>Simple Text</NavbarText>
+          <NavbarText></NavbarText>
         </Collapse>
       </Navbar>
     </div>
