@@ -29,7 +29,7 @@ export const TaskList = () => {
         <h2>Task List</h2>
         {
             tasks.map(
-                (task) => <Task getAllTasks={getAllTasks}
+                (task) => <Task key={`task--${task.id}`} getAllTasks={getAllTasks}
                         currentUser= {youdoUserObject}
                         taskObject= {task} 
                         />

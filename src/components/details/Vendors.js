@@ -4,22 +4,22 @@ import { Vendor } from "./Vendor"
 import { VendorForm } from "./VendorForm"
 
 export const Vendors = ({wedding, user}) => {
-    const weddingId = wedding.id
+    const weddingId = wedding?.id
     const [jobs, setJobs] = useState([])
     const [weddingVendors, setWeddingVendors] = useState([])
     const [formActive, updateFormActive] = useState(false)
     
-    
+    //fn to get all vendors and set state of weddingVendors
+    //this is in fn form in order to pass it through props
     const getAllVendors = () => {
         fetch (`http://localhost:8088/weddingVendors?_expand=vendor&weddingId=${weddingId}`)
                 .then(response => response.json())
                 .then((data) => {
-                    const Vendors = data
-                    setWeddingVendors(Vendors)
+                    setWeddingVendors(data)
                 })
     }
     
-
+    //this runs getAllVendors and sets the state of jobs
     useEffect(
         () => {
 
@@ -35,15 +35,7 @@ export const Vendors = ({wedding, user}) => {
     )
 
     
-        
-    // useEffect(
-    //     () => {
-    //         if (formActive) {
-
-    //         }
-    //     },
-    //     []
-    // )
+    //this fn allows the form to add vendors to be shown when the add a vendor button is clicked and the state of updateFormActive is set to true  
     const vendorForm = () => {
         if (formActive) {
             return <> <h5>Add a Vendor</h5>
@@ -68,7 +60,9 @@ export const Vendors = ({wedding, user}) => {
                 
                 {
                     weddingVendors.map(
-                    (vendor) => <Vendor vendor={vendor} getAllVendors={getAllVendors}/>
+                        
+                    (weddingVendor) =>
+                    <Vendor key={`weddingVendor--${weddingVendor.id}`} weddingVendor={weddingVendor} getAllVendors={getAllVendors} jobs={jobs}/>
                     )
                 }
                 

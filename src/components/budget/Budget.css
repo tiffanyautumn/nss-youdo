@@ -1,0 +1,18 @@
+.card {
+    display: flex;
+    justify-content: center;
+    background-color: #1C5546 ;
+    text-align: left;
+    width: 60%;
+}
+
+.card-body h4 {
+    text-align: left;
+    color: black;
+    background-color: #1C5546;
+}
+
+.budgetcard {
+    display: flex;
+    justify-content: center;
+}

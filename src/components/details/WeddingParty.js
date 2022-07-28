@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { Button, Table } from "reactstrap"
+import { Bridesmaid } from "./Bridesmaid"
+import { Groomsman } from "./Groomsman"
 import { PartyForm } from "./WeddingPartyForm"
 
 
@@ -29,14 +31,16 @@ export const WeddingParty = ({wedding}) => {
         []
     )
 
-    const Bridesmaids =  weddingParty.filter(party => party.member.roleId === 1)
     
+
+    const Bridesmaids =  weddingParty.filter(party => party.member.roleId === 1)
+
     const Groomsmen = weddingParty.filter(party => party.member.roleId === 2)
 
     
     const partyForm = () => {
         if (formActive) {
-            return <> <h1>Active</h1>
+            return <> 
             <div><PartyForm  wedding={weddingId} roles={roles} weddingParty={weddingParty} updateFormActive={updateFormActive} getAllPartiers={getAllPartiers}/></div>
             <Button onClick={() => updateFormActive(false) }>Nevermind</Button></>
         }
@@ -51,18 +55,18 @@ export const WeddingParty = ({wedding}) => {
             <thead>
                 <tr>
                     <th>Bridesmaids</th>
-                    
+                    <th> </th>
                 </tr>
+                
             </thead>
             <tbody>
-                
+              
             {
             Bridesmaids.map(
-                (maid) => {
-                    return <tr><td>{maid.member.name}</td></tr>
-                })
+                (maid) => <Bridesmaid key={`bridesmaid--${maid.id}`} maid={maid} getAllPartiers={getAllPartiers} />
+                )
             }
-            
+             
             </tbody>
         
         </Table>
@@ -71,22 +75,24 @@ export const WeddingParty = ({wedding}) => {
             <thead>
                 <tr>
                     <th>Groomsmen</th>
-                    
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 
             {
             Groomsmen.map(
-                (man) => {
-                    return <tr><td>{man.member.name}</td></tr>
-                }
+                (man) => 
+                <Groomsman key={`groomsmen--${man.id}`} groomsman={man} getAllPartiers={getAllPartiers} />
             )
             }
             
             </tbody>
         
         </Table>
+        {
+            partyForm()
+        }
         
  </>
 }

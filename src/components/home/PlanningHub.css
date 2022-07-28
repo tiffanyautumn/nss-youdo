@@ -1,0 +1,65 @@
+.planningHubHeader {
+    width: 100%;
+    margin-top: 5%;
+}
+
+.planningHub {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.weddingDetails {
+    display: flex;
+    background: #1C5546 ;
+    width: 75%;
+    justify-content: center;
+   margin-left: 10%;
+   margin-right: 10%;
+   margin-bottom: 2%;
+   margin-top: 5%;
+}
+
+.weddingDetails button {
+    text-align: center;
+    width: 75%;
+    margin: 15px;
+    padding: 10px;
+}
+
+.col {
+    align-content: center;
+}
+
+.card-body {
+    text-align: center;
+}
+
+button {
+    color: white;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.my-2 {
+    background-color: #054B38;
+    margin: 10px;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.wdContainer {
+    display: flex;
+    justify-content: center;
+
+
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Lora', serif;
+}

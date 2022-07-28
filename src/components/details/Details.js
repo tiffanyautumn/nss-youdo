@@ -11,14 +11,15 @@ import "./Details.css"
 
 export const Details = () => {
     const navigate = useNavigate()
-    const [wedding, setWedding] = useState({})
-
+    const [wedding, setWedding] = useState([])
     const [active, setActive] = useState(null)
-    const [open, setOpen] = useState('');
     const [titles, setTitles] = useState([])
     const localYouDoUser = localStorage.getItem("youdo_user")
     const youdoUserObject = JSON.parse(localYouDoUser)
 
+    //fetches wedding that matches the user id from local storage. 
+    //if there is a matching wedding id the active state is set to true, and the value of wedding is set and the details appear
+    //if there are none then then the page renders a message to create a wedding 
     useEffect(
         () => {
             fetch (`http://localhost:8088/weddings?userId=${youdoUserObject.id}&_expand=user`)
@@ -28,19 +29,16 @@ export const Details = () => {
                         const weddingArray = data[0]
                         setWedding(weddingArray);
                         setActive(true)
-                        
-                        
                     }
                     else {
                         console.log("no wedding")
                         setActive(false)
                     }
                 })
-                
-                },
+            },
         []
     )
-
+    //fetches titles and the value of titles is set 
     useEffect(
         () => {
             fetch (`http://localhost:8088/titles`)
@@ -52,6 +50,7 @@ export const Details = () => {
         []
     )
     
+    //fn to print the user's name and matching title
     const usersTitle = () => {
         let html = ""
         titles
@@ -59,11 +58,11 @@ export const Details = () => {
         .map((title) => {
             html += title.name
         })
-        return <h5>{html}: {wedding.user.name}</h5>
+        return <><div className="usertitle"><h5>{html}:</h5> <span className="usertitlespan"><h6>{wedding.user.name}</h6></span></div></>
     }
     
     
-
+    //fn with card to create a wedding 
     const notActive = () => {
         return <Card className="my-2" style={{ width: '18rem' }}>
         <CardBody>
@@ -78,37 +77,42 @@ export const Details = () => {
 
    
     return<>
+
         {
             !active
                 ? notActive()
                 : <div>
-                <h3>Wedding Details </h3>
-                    {
-                        usersTitle()
-                    }
-                    <Partner wedding={wedding} />
+                <header><h3>Wedding Details </h3></header>
+                    <section className="detailspage">
+                        {usersTitle()}
                     
-                
-                <Venue wedding={wedding} />
-                <div className="weddingDate"><h4>Wedding Date:</h4><span>{wedding?.weddingDate}</span></div>
+                        <Partner wedding={wedding} />
+                    
+                        <div className="weddingDate">
+                            <h5>Wedding Date:</h5> 
+                            <span className="weddingdatespan"><h6>{wedding?.weddingDate}</h6></span>
+                        </div>
+
+                        <Venue wedding={wedding} />
+                    </section>
+
                 <UncontrolledAccordion defaultOpen={['1','2' ]} stayOpen>
-                <AccordionItem>
-                    <AccordionHeader targetId="2"> Wedding Party </AccordionHeader>
-                    <AccordionBody accordionId="2">
-                        <WeddingParty wedding={wedding}/>
-                    </AccordionBody>
-                </AccordionItem>
-                <AccordionItem>
-                    <AccordionHeader targetId="3">Vendors</AccordionHeader>
-                    <AccordionBody accordionId="3">
-                        <Vendors wedding={wedding} user={youdoUserObject} />
-                    </AccordionBody>
-                
-                </AccordionItem>
+                    <AccordionItem>
+                        <AccordionHeader targetId="2"> Wedding Party </AccordionHeader>
+                        <AccordionBody accordionId="2">
+                            <WeddingParty wedding={wedding}/>
+                        </AccordionBody>
+                    </AccordionItem>
+
+                    <AccordionItem>
+                        <AccordionHeader targetId="3">Vendors</AccordionHeader>
+                        <AccordionBody accordionId="3">
+                            <Vendors wedding={wedding} user={youdoUserObject} />
+                        </AccordionBody>
+                    </AccordionItem>
                 </UncontrolledAccordion>
-                </div>
                 
-            
+                </div>   
         }
 
         

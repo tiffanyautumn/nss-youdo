@@ -11,7 +11,6 @@ export const Partner = ({wedding}) => {
                 .then((data) => {
                     const partner = data[0]
                     setPartner(partner)
-                    console.log(partner)
                 })
         },
         []
@@ -19,6 +18,6 @@ export const Partner = ({wedding}) => {
     
         return <>
     
-    <div className= "partnerName"> <h4> {partner?.title?.name}:</h4> <span>{partner?.name}</span></div>
+    <div className= "partnerName"> <h5> {partner?.title?.name}:</h5> <span className="partnerspan"><h6>{partner?.name}</h6></span></div>
  </>
 }
