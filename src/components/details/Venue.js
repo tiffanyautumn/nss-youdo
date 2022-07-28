@@ -12,7 +12,6 @@ export const Venue = ({wedding}) => {
                 .then((data) => {
                     const venue = data[0]
                     setVenue(venue)
-                    console.log(venue)
                 })
         },
         []
@@ -20,7 +19,7 @@ export const Venue = ({wedding}) => {
     
         return <>
     
-    <Row><div className="venueName"> <h4> Venue: </h4><span className="venueSpan"><p>{venue.name}</p> <p>{venue.address}</p></span> </div></Row>
+    <Row><div className="venueName"> <h5> Venue: </h5><span className="venueSpan"><h6>{venue.name}</h6> <h6>{venue.address}</h6></span> </div></Row>
   
  </>
 }

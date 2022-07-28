@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 export const Task = ({getAllTasks, currentUser, taskObject}) => {
 
     const [isChecked, setIsChecked] = useState(false);
-    const [userTasks, updateUserTasks] = useState([])
 
 
+    //this fn checks if any userTasks in the database match this users id and matches this task
+    //if there is a matching task it sets setisChecked to true
     const checkUserTasks = () => {
         fetch(`http://localhost:8088/userTasks?_expand=task&taskId=${taskObject.id}&userId=${currentUser.id}`)
                 .then(response => response.json())
                 .then((data) => {
-                    
                     if(data.length > 0){
                     setIsChecked(true)
                     }
@@ -25,6 +25,8 @@ export const Task = ({getAllTasks, currentUser, taskObject}) => {
         []
     )
   
+    //if the checkmark on this task is checked then it posts it to userTasks
+    //the fn then runs getAllTasks and checkUserTasks in order to show updated state
     const handleClick = (evt) => {
         evt.preventDefault()
 
@@ -50,7 +52,6 @@ export const Task = ({getAllTasks, currentUser, taskObject}) => {
     
     
     <section className="task" key={`task--${taskObject.id}`}>
-        <div className="taskandcheckbox">
             <div>
                 <header className="taskdescription"></header>
             </div>
@@ -70,7 +71,6 @@ export const Task = ({getAllTasks, currentUser, taskObject}) => {
             </svg>
             {taskObject.description}</label>
             </div>
-        </div>
     </section>
     </>
 }

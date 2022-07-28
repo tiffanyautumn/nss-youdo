@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import { Button } from "reactstrap"
+import { Button, Table } from "reactstrap"
+import { Item } from "./Item"
 import { ItemForm } from "./ItemForm"
 
 export const BudgetItems = ({budget, budgetItems, getAllBudgets }) => {
@@ -18,13 +19,28 @@ export const BudgetItems = ({budget, budgetItems, getAllBudgets }) => {
     return <>
         <h5>Items</h5>
         <div>
-        {
+        <Table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price </th>
+                    <th> </th>
+                </tr>
+                
+            </thead>
+            <tbody>
+              
+            {
             budgetItems.map(
-                (budgetitem) => {
-                    return <h5> ${budgetitem?.item?.amount} {budgetitem?.item?.description}</h5>
-                }
+                (budgetitem) => <Item key={`item--${budgetitem.id}`} budgetItem={budgetitem} getAllBudgets={getAllBudgets}/>
+                     
             )
-        }
+            }
+             
+            </tbody>
+        
+        </Table>
+        
         </div>
         {
             itemForm()

@@ -33,6 +33,6 @@ input[type="checkbox"] {
   }
   
   .checkbox--active {
-    border-color: purple;
-    background: purple;
+    border-color:#1C5546   ;
+    background: #1C5546 ;
   }

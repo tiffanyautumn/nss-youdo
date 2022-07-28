@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Button, Card, CardBody, CardTitle, Progress } from "reactstrap"
+import { Button, Card, CardBody, CardTitle, Container, Progress } from "reactstrap"
 import { Budget, BudgetItems } from "./BudgetItems"
-
+import "./Budget.css"
 
 export const BudgetBoard = () => {
     
@@ -23,6 +23,8 @@ export const BudgetBoard = () => {
         []
     )
 
+    //fn that gets the budget associated with the current user
+    //fn is in this format in order to be passed as prop
     const getAllBudgets = () => {
         fetch (`http://localhost:8088/budgets?userId=${youdoUserObject.id}&_expand=user`)
             .then(response => response.json())
@@ -49,11 +51,11 @@ export const BudgetBoard = () => {
                 })
     }
 
-
+    //conditional render of page dependant upon active state
     const notActive = () => {
         return <Card className="my-2" style={{ width: '18rem' }}>
         <CardBody>
-            <Button onClick={() => navigate("/budgetform")}>
+            <Button outline onClick={() => navigate("/budgetform")}>
                 <CardTitle tag="h5"> You haven't entered any Budget information.
                 <p>Click here to create a budget!</p> </CardTitle>
             </Button>
@@ -61,6 +63,8 @@ export const BudgetBoard = () => {
         </CardBody>
         </Card>
     }
+
+    //fn to calculate the budget stats
     const math = () => {
        
         const totalSpent = () =>{
@@ -70,7 +74,6 @@ export const BudgetBoard = () => {
                    spent += budgetitem.item.amount
                 }
             )
-            console.log(spent)
             return spent
         }
 
@@ -82,21 +85,23 @@ export const BudgetBoard = () => {
         }
 
         return <article>
-        <h3>{budget.user.name}'s Budget</h3>
+        <header><h3>{budget.user.name}'s Budget</h3></header>
+        <div className="budgetcard">
+        <Card>
+        <CardBody>
+            <h5>Total Budget: ${budget.amount}</h5>
+            <h5>Total Spent: ${totalSpent()}</h5>
+            <h5>Remaining: ${remaining()}</h5>
+            
+        </CardBody>
+        </Card>
+        </div>
         <div className="text-center">
         ${totalSpent()} of ${budget.amount}
         </div>
         <Progress
         max={budget.amount}
         value={totalSpent()}/>
-        <Card className="my-2" style={{ width: '18rem' }}>
-        <CardBody>
-            <h4>Total Budget: ${budget.amount}</h4>
-            <h4>Total Spent: ${totalSpent()}</h4>
-            <h4>Remaining: ${remaining()}</h4>
-            
-        </CardBody>
-        </Card>
         </article>
     }
     

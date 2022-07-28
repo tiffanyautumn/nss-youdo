@@ -2,18 +2,15 @@ import { useState } from "react"
 import { Form, FormGroup, Label, Input, Button, Card, CardBody } from "reactstrap"
 
 export const VendorForm = ({jobs, wedding, getAllVendors, updateFormActive}) => {
-    console.log(wedding)
     const [vendor, update] = useState({
         name: "",
         jobId: null,
         phoneNum: ""
     })
 
-    // const [weddingVendor, setWeddingVendor] = useState({
-    //     vendorId: 0,
-    //     weddingId: 0
-    // })
 
+//once the save button is clicked we want to post the vendor, then get the id from that post and create a wedding vendors post 
+//finally we want to run the getAllVendors fn in order to see our added vendor 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
         console.log("You clicked the button")
@@ -26,8 +23,6 @@ export const VendorForm = ({jobs, wedding, getAllVendors, updateFormActive}) => 
         const weddingVendorToSend = {
         }
 
-
-        // TODO: Perform the fetch() to POST the object to the API
         return fetch (`http://localhost:8088/vendors`, {
             method: "POST",
             headers: {

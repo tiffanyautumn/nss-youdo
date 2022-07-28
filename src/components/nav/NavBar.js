@@ -43,7 +43,7 @@ export const NavBar = (args) => {
             }
             </NavItem>
             <NavItem>
-                <Link className="navbar__link" to="/planningHub"> Planning Hub</Link>
+                <Link className="navbar__link" to="/"> Planning Hub</Link>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>

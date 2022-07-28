@@ -1,22 +1,41 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Input } from "reactstrap"
 import "./Login.css"
 
 export const Register = (props) => {
+    const [titles, setTitles] =useState ([])
     const [customer, setCustomer] = useState({
         email: "",
         name: "",
-        isAdmin: false
+        isAdmin: false,
+        titleId: 0
     })
     let navigate = useNavigate()
 
+    useEffect(
+        () => {
+            fetch (`http://localhost:8088/titles`)
+                .then(response => response.json())
+                .then((data) => {
+                    setTitles(data)
+                })
+        },
+        []
+    )
+
     const registerNewUser = () => {
+        const userToSend = {
+            email: customer.email,
+            name: customer.name,
+            titleId: parseFloat(customer.titleId)
+        }
         return fetch("http://localhost:8088/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(customer)
+            body: JSON.stringify(userToSend)
         })
             .then(res => res.json())
             .then(createdUser => {
@@ -60,7 +79,7 @@ export const Register = (props) => {
                 <fieldset>
                     <label htmlFor="name"> Full Name </label>
                     <input onChange={updateCustomer}
-                           type="text" id="fullName" className="form-control"
+                           type="text" id="name" className="form-control"
                            placeholder="Enter your name" required autoFocus />
                 </fieldset>
                 <fieldset>
@@ -70,13 +89,27 @@ export const Register = (props) => {
                         placeholder="Email address" required />
                 </fieldset>
                 <fieldset>
+                    <label htmlFor="title"> Title</label>
+                    <Input onChange={updateCustomer}
+                        id="titleId" type="select"
+                        >
+                        <option>title</option>
+                    {
+                        titles.map(
+                            (title) => {
+                                return <option value={title.id}>{title.name}</option>
+                                        })
+                    }
+                    </Input>
+                    </fieldset>
+                <fieldset>
                     <input onChange={(evt) => {
                         const copy = {...customer}
                         copy.isStaff = evt.target.checked
                         setCustomer(copy)
                     }}
                         type="checkbox" id="isStaff" />
-                    <label htmlFor="email"> I am an employee </label>
+                    <label htmlFor="email"> </label>
                 </fieldset>
                 <fieldset>
                     <button type="submit"> Register </button>
