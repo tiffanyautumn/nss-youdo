@@ -27,12 +27,13 @@ export const TaskAdmin = ({taskObject, getAllTasks}) => {
 
     const taskForm = () => {
         if (formActive) {
-            return <> <h5>Edit Task</h5>
-            <div><TaskEdit updateFormActive={updateFormActive} getAllTasks={getAllTasks} taskObject={taskObject} /></div>
-            <Button onClick={() => updateFormActive(false) }>Nevermind</Button></>
+            return <> <tr>
+                <td><h5>Edit Task</h5></td>
+            <td><TaskEdit updateFormActive={updateFormActive} getAllTasks={getAllTasks} taskObject={taskObject} /></td>
+            <td><Button onClick={() => updateFormActive(false) }>Nevermind</Button></td></tr></>
         }
         else {
-            return ""
+            return <tr></tr>
         }
     }
 
@@ -57,8 +58,9 @@ export const TaskAdmin = ({taskObject, getAllTasks}) => {
             </svg>
             </td>
             <td>{taskObject.description}</td>
-             <td>{deleteButton()}</td>
-             <td><Button size="sm" onClick={() => updateFormActive(true) }>Edit</Button></td>
+            <td>{taskObject.timeFrame}</td>
+            <td>{deleteButton()}</td>
+            <td><Button size="sm" onClick={() => updateFormActive(true) }>Edit</Button></td>
             
         </tr>
         {taskForm()}

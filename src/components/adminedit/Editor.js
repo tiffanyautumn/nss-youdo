@@ -4,6 +4,7 @@ import { TaskAdmin, TaskEdit } from "./TaskAdmin"
 import { TaskForm } from "./TaskForm"
 
 
+//this page is for the admin to be able to view, edit, and delete tasks 
 export const Editor = () => {
     const [tasks, setTasks] = useState([])
     const [formActive, updateFormActive] = useState(false)
@@ -46,7 +47,8 @@ export const Editor = () => {
         <thead>
                 <tr>
                     <th></th>
-                    <th>task</th>
+                    <th>Task</th>
+                    <th>Time Frame</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -54,14 +56,12 @@ export const Editor = () => {
             <tbody>
             {
             tasks.map(
-                (task) => <TaskAdmin getAllTasks={getAllTasks}
+                (task) => <TaskAdmin key={`task--${task.id}`} getAllTasks={getAllTasks}
                         currentUser= {youdoUserObject}
                         taskObject= {task} 
                         />
             )
-        }
-            </tbody>
-
+        }</tbody>
     </Table>
         
         {taskForm()}
