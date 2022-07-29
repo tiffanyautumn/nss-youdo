@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { Form, FormGroup, Label, Input, FormText, Button, Card, CardBody } from "reactstrap"
 
+
+//this page is the form that allows a user to add a wedding party member
 export const PartyForm = ({wedding, roles, updateFormActive, getAllPartiers}) => {
     const [party, update] = useState({
         name: "",
@@ -9,7 +11,6 @@ export const PartyForm = ({wedding, roles, updateFormActive, getAllPartiers}) =>
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
-        console.log("You clicked the button")
 
         const memberToSend = {
             name: party.name,
@@ -84,7 +85,7 @@ export const PartyForm = ({wedding, roles, updateFormActive, getAllPartiers}) =>
                     {
                         roles.map(
                             (role) => {
-                                return <option value={role.id}> {role.name}</option>
+                                return <option key= {`role--${role.id}`}value={role.id}> {role.name}</option>
                             }
                         )
                     }

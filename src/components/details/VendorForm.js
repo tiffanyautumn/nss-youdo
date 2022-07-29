@@ -102,7 +102,7 @@ export const VendorForm = ({jobs, wedding, getAllVendors, updateFormActive}) => 
                     {
                         jobs.map(
                             (job) => {
-                                return <option value={job.id}> {job.name}</option>
+                                return <option key={`job--${job.id}`} value={job.id}> {job.name}</option>
                             }
                         )
                     }
