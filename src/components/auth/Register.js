@@ -8,8 +8,7 @@ export const Register = (props) => {
     const [customer, setCustomer] = useState({
         email: "",
         name: "",
-        isAdmin: false,
-        titleId: 0
+        isAdmin: false
     })
     let navigate = useNavigate()
 
@@ -28,7 +27,6 @@ export const Register = (props) => {
         const userToSend = {
             email: customer.email,
             name: customer.name,
-            titleId: parseFloat(customer.titleId)
         }
         return fetch("http://localhost:8088/users", {
             method: "POST",
@@ -88,29 +86,8 @@ export const Register = (props) => {
                         type="email" id="email" className="form-control"
                         placeholder="Email address" required />
                 </fieldset>
-                <fieldset>
-                    <label htmlFor="title"> Title</label>
-                    <Input onChange={updateCustomer}
-                        id="titleId" type="select"
-                        >
-                        <option>title</option>
-                    {
-                        titles.map(
-                            (title) => {
-                                return <option value={title.id}>{title.name}</option>
-                                        })
-                    }
-                    </Input>
-                    </fieldset>
-                <fieldset>
-                    <input onChange={(evt) => {
-                        const copy = {...customer}
-                        copy.isStaff = evt.target.checked
-                        setCustomer(copy)
-                    }}
-                        type="checkbox" id="isStaff" />
-                    <label htmlFor="email"> </label>
-                </fieldset>
+                
+            
                 <fieldset>
                     <button type="submit"> Register </button>
                 </fieldset>

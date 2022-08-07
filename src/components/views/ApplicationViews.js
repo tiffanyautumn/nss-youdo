@@ -14,7 +14,6 @@ export const ApplicationViews = () => {
                 .then(response => response.json())
                 .then((data) => {
                     const currentuser = data
-                    console.log(currentuser)
                     setUser(currentuser)
                 })
         },

@@ -4,7 +4,7 @@ export const Item = ({budgetItem, getAllBudgets}) => {
     const itemId = budgetItem?.item?.id
 
     const deleteButton = () => {
-        return <Button size="sm" onClick={ () => {
+        return <Button outline size="sm" onClick={ () => {
         
                  return fetch (`http://localhost:8088/items/${itemId}`, {
                         method: "DELETE"
@@ -19,7 +19,7 @@ export const Item = ({budgetItem, getAllBudgets}) => {
     <tr>
         <td>{budgetItem?.item?.description}</td>
         <td>${budgetItem?.item?.amount}</td>
-        <td>{deleteButton()}</td>
+        <td className="deleteButton">{deleteButton()}</td>
     </tr>
     
     </>

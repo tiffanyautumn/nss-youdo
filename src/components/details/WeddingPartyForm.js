@@ -49,7 +49,7 @@ export const PartyForm = ({wedding, roles, updateFormActive, getAllPartiers}) =>
 
     return <Card>
     <CardBody>
-    <Form>
+    <Form className="PartyMemberForm">
         <FormGroup>
             <Label for="memberName">Member Name</Label>
             <Input

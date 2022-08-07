@@ -36,3 +36,86 @@ input[type="checkbox"] {
     border-color:#1C5546   ;
     background: #1C5546 ;
   }
+
+  .sortingSelect {
+    width:fit-content;
+    display: flex;
+    align-content: flex-end;
+  }
+
+  .categoryOffcanvas {
+    width: fit-content;
+    display: flex;
+    margin-right: 0;
+  }
+
+  .categoryDisplay {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  
+  select {
+    width: fit-content;
+  }
+
+  h4 {
+    text-align: center;
+    padding-top: 5%;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    background-color: #1C5546;
+    margin-top: 5%;
+    text-align: center;
+    margin-bottom: 4%;
+    color: white;
+    background-color: #1C5546 ;
+    padding-top: 5%;
+    padding-bottom: 5%;
+  }
+
+  .select {
+    width: 33%;
+    display: flex;
+  }
+
+  form {
+    width: fit-content;
+    padding-left: 2%;
+    padding-bottom: 2%;
+    align-self:flex-end;
+  }
+
+  .hideButton {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .accordion {
+    padding-top: 5%;
+    --bs-accordion-active-bg: #1C5546;
+    --bs-accordion-active-color: white;
+    width: 75%;
+    align-self: center;
+  }
+
+  .accordion --bs-accordion-active-bg {
+    background-color: #1C5546;
+  }
+
+  .TaskHeader {
+    align-self: center;
+    text-align: center;
+    width: 33%;
+    color: white;
+  }
+
+  .TimeDisplay {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }

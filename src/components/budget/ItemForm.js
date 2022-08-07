@@ -49,9 +49,9 @@ export const ItemForm = ({updateFormActive, budget, getAllBudgets}) => {
     return <>
     <Card>
     <CardBody>
-    <Form>
+    <Form className="itemForm">
         <FormGroup>
-            <Label for="description">Item description</Label>
+            <Label for="description">Item Description</Label>
             <Input
                 id="description"
                 name="description"

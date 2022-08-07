@@ -6,7 +6,7 @@ export const Vendor = ({weddingVendor, getAllVendors, jobs}) => {
     const vendorId = weddingVendor?.vendor?.id
     
     const deleteButton = () => {
-        return <Button size="sm" onClick={() => {
+        return <Button outline size="sm" onClick={() => {
         
                  return fetch (`http://localhost:8088/vendors/${vendorId}`, {
                         method: "DELETE"
@@ -28,7 +28,7 @@ export const Vendor = ({weddingVendor, getAllVendors, jobs}) => {
         )}</td>
         <td>{weddingVendor?.vendor?.name}</td>
         <td>{weddingVendor?.vendor?.phoneNum}</td>
-        <td>{deleteButton()}</td>
+        <td className="deleteButton">{deleteButton()}</td>
     </tr>
     
     

@@ -9,13 +9,12 @@ input,
 select,
 textarea {
   color: #404040;
-  font-family: "Comfortaa", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
 }
 
 body {
-    padding: 0 3rem;
+    padding: 0 10rem;
     background-color: #E7F1EE ;
     margin-bottom: 10%;
 }

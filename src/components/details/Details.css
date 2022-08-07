@@ -28,15 +28,19 @@
     align-items: baseline;
 }
 
-header {
+.DetailsHeader {
     margin-top: 5%;
     text-align: center;
     margin-bottom: 4%;
+    color:  white;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 .detailspage {
-    margin-left: 5%;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
+    display: flex;
+    justify-content: center;
 }
 
 .usertitle {
@@ -50,4 +54,48 @@ header {
 
 .weddingdatespan {
     margin-left: 1%;
+}
+
+.editButtonDate {
+    margin-left: 10%;
+}
+
+.weddingDetails {
+    padding: 5%;
+}
+
+.deleteButton {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.VenueForm {
+    width: 100%;
+}
+
+.VenueFormDiv {
+    width: 100%
+}
+
+.PartyMemberForm {
+    width: 100%;
+}
+
+.VendorForm {
+    width: 100%;
+}
+
+.DetailsDropdown {
+    display: flex;
+    justify-content: center;
+}
+
+.DateForm {
+    width: 100%
+}
+
+.newuser {
+    display: flex;
+    justify-content: center;
+    padding-top: 10%;
 }
