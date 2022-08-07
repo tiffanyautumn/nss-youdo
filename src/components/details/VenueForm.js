@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { Form, FormGroup, Label, Input, Button, Card, CardBody } from "reactstrap"
 
-export const VendorForm = ({jobs, wedding, getAllVendors, updateFormActive}) => {
-    const [vendor, update] = useState({
+export const VenueForm = ({wedding, getAllVenues, updateFormActive, sites}) => {
+    const [venue, update] = useState({
         name: "",
-        jobId: null,
-        phoneNum: ""
+        siteId: 0,
+        phoneNum: "",
+        address: ""
     })
 
 
@@ -13,55 +14,74 @@ export const VendorForm = ({jobs, wedding, getAllVendors, updateFormActive}) => 
 //finally we want to run the getAllVendors fn in order to see our added vendor 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
+        console.log("You clicked the button")
 
-        const vendorToSend = {
-            name: vendor.name,
-            jobId: parseFloat(vendor.jobId),
-            phoneNum: vendor.phoneNum
-        }
-        const weddingVendorToSend = {
+        const venueToSend = {
+            name: venue.name,
+            siteId: parseFloat(venue.siteId),
+            phoneNum: venue.phoneNum,
+            address: venue.address
         }
 
-        return fetch (`http://localhost:8088/vendors`, {
+        const weddingVenueToSend = {
+            weddingId: wedding.id
+        }
+
+        return fetch (`http://localhost:8088/venues`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(vendorToSend)
+            body: JSON.stringify(venueToSend)
         })
             .then(response => response.json())
-            .then((createdVendor) => {
-                weddingVendorToSend.vendorId = createdVendor.id;
-                weddingVendorToSend.weddingId = wedding
-                return fetch(`http://localhost:8088/weddingVendors`, {
+            .then((createdVenue) => {
+                weddingVenueToSend.venueId = createdVenue.id;
+                return fetch(`http://localhost:8088/weddingVenues`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify(weddingVendorToSend)
+                    body: JSON.stringify(weddingVenueToSend)
                 })
                 
             })
             .then(() => {
-                getAllVendors()
+                getAllVenues()
                 updateFormActive(false)
             })
     }
 
-    return <Card>
-    <CardBody>
-    <Form className="VendorForm">
+    return <>
+    <Form className="VenueForm">
         <FormGroup>
-            <Label for="vendorName">Vendor Name</Label>
+            <Label for="venueName">Venue Name</Label>
             <Input
-                id="vendorName"
+                id="venueName"
                 name="name"
                 type="text"
-                value={vendor.name}
+                value={venue.name}
                 onChange={
                     (evt) => {
-                        const copy = {...vendor}
+                        const copy = {...venue}
                         copy.name = evt.target.value
+                        update(copy)
+                    }
+                } />
+
+        </FormGroup>
+
+        <FormGroup>
+            <Label for="venueAddress">Address</Label>
+            <Input
+                id="venueName"
+                name="name"
+                type="text"
+                value={venue.address}
+                onChange={
+                    (evt) => {
+                        const copy = {...venue}
+                        copy.address = evt.target.value
                         update(copy)
                     }
                 } />
@@ -74,10 +94,10 @@ export const VendorForm = ({jobs, wedding, getAllVendors, updateFormActive}) => 
                 id="phoneNum"
                 name="phoneNum"
                 type="tel"
-                value={vendor.phoneNum}
+                value={venue.phoneNum}
                 onChange={
                     (evt) => {
-                        const copy = {...vendor}
+                        const copy = {...venue}
                         copy.phoneNum = evt.target.value
                         update(copy)
                     }
@@ -85,23 +105,23 @@ export const VendorForm = ({jobs, wedding, getAllVendors, updateFormActive}) => 
         </FormGroup>
         
         <FormGroup>
-            <Label for="jobSelect"> Vendor's Job</Label>
+            <Label for="siteSelect"> Site</Label>
             <Input
-                id="jobId"
-                name="jobId"
+                id="siteId"
+                name="siteId"
                 type="select"
                 onChange={
                     (evt) => {
-                        const copy = {...vendor}
-                        copy.jobId = evt.target.value
+                        const copy = {...venue}
+                        copy.siteId = evt.target.value
                         update(copy)
                     }
                 }>
-                    <option>select a job</option>
+                    <option>select a site type</option>
                     {
-                        jobs.map(
-                            (job) => {
-                                return <option key={`job--${job.id}`} value={job.id}> {job.name}</option>
+                        sites.map(
+                            (site) => {
+                                return <option key={`site--${site.id}`} value={site.id}> {site.name}</option>
                             }
                         )
                     }
@@ -112,7 +132,8 @@ export const VendorForm = ({jobs, wedding, getAllVendors, updateFormActive}) => 
       Submit
     </Button>
   </Form>
-  </CardBody>
-  </Card>
+  </>
 }
 
+
+    

@@ -1,19 +1,23 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Card, CardBody, Form, FormGroup, Input, Label } from "reactstrap"
 
-export const TaskEdit = ({taskObject, getAllTasks, updateFormActive}) => {
+export const TaskEdit = ({taskObject, getAllTasks, updateFormActive, categories}) => {
+    
     const [task, update] = useState({
         description: taskObject.description,
-        timeFrame: taskObject.timeFrame
+        timeFrame: taskObject.timeFrame,
+        categoryId: taskObject.category.id
     })
 
+   
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
         console.log("You clicked the button")
 
         const taskToSend = {
             description: task.description,
-            timeFrame: parseFloat(task.timeFrame)
+            timeFrame: parseFloat(task.timeFrame),
+            categoryId: parseFloat(task.categoryId)
         }
 
         return fetch(`http://localhost:8088/tasks/${taskObject.id}`, {
@@ -60,6 +64,27 @@ export const TaskEdit = ({taskObject, getAllTasks, updateFormActive}) => {
                         update(copy)
                     }
                 } />
+                <Label for="category">Category</Label>
+            <Input
+                id="category"
+                name="category"
+                type="select"
+                value={task?.categoryId}
+                onChange={
+                    (evt) => {
+                        const copy = {...task}
+                        copy.categoryId= evt.target.value
+                        update(copy)
+                    }
+                }>
+                    {
+                        categories?.map(
+                            (category) => {
+                                return <option key={category.id} value={category.id}>{category.description}</option>
+                            }
+                        )
+                    }
+            </Input>
 
         </FormGroup>
         <Button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}>

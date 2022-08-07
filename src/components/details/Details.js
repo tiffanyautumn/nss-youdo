@@ -4,10 +4,11 @@ import { Card, CardBody, CardTitle, CardText, Button, Accordion, AccordionBody, 
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Partner } from "./Partner"
-import { Venue } from "./Venue"
+import { Venue, Venues } from "./Venues"
 import { WeddingParty } from "./WeddingParty"
 import { Vendors } from "./Vendors"
 import "./Details.css"
+import { WeddingDate } from "./WeddingDate"
 
 export const Details = () => {
     const navigate = useNavigate()
@@ -51,28 +52,20 @@ export const Details = () => {
     )
     
     //fn to print the user's name and matching title
-    const usersTitle = () => {
-        let html = ""
-        titles
-        .filter((title) => wedding.user.titleId === title.id)
-        .map((title) => {
-            html += title.name
-        })
-        return <><div className="usertitle"><h5>{html}:</h5> <span className="usertitlespan"><h6>{wedding.user.name}</h6></span></div></>
-    }
+    
     
     
     //fn with card to create a wedding 
     const notActive = () => {
-        return <Card className="my-2" style={{ width: '18rem' }}>
+        return <div className="newuser"><Card className="my-2" style={{ width: '18rem' }}>
         <CardBody>
-            <Button onClick={() => navigate("/detailsform")}>
+            <Button outline onClick={() => navigate("/detailsform")}>
                 <CardTitle tag="h5"> You haven't entered any wedding information.
                 <p>Click here to tell us about your big day!</p> </CardTitle>
             </Button>
             <CardText> </CardText>
         </CardBody>
-        </Card>
+        </Card></div>
     }
 
    
@@ -82,21 +75,25 @@ export const Details = () => {
             !active
                 ? notActive()
                 : <div>
-                <header><h3>Wedding Details </h3></header>
+                <div style={{backgroundImage: `url("https://cdn.shopify.com/s/files/1/2667/4342/products/57_434cd14c-4f19-4fe3-9bcd-90624e9a1a54_1242x.jpg?v=1631407751")`}}><header className="DetailsHeader"><h3 className="weddingDetails">Wedding Details </h3></header></div>
                     <section className="detailspage">
-                        {usersTitle()}
-                    
-                        <Partner wedding={wedding} />
-                    
-                        <div className="weddingDate">
-                            <h5>Wedding Date:</h5> 
-                            <span className="weddingdatespan"><h6>{wedding?.weddingDate}</h6></span>
-                        </div>
-
-                        <Venue wedding={wedding} />
+                    <Card >
+                        <CardBody>
+                        <Partner wedding={wedding} titles={titles} />
+                        <WeddingDate wedding={wedding} />
+                        </CardBody>
+                    </Card>
+                        
                     </section>
-
+                <div className="DetailsDropdown">
                 <UncontrolledAccordion defaultOpen={['1','2' ]} stayOpen>
+                    <AccordionItem>
+                        <AccordionHeader targetId="1"> Venues </AccordionHeader>
+                        <AccordionBody accordionId="1">
+                            <Venues wedding={wedding} />
+                        </AccordionBody>
+                    </AccordionItem>
+
                     <AccordionItem>
                         <AccordionHeader targetId="2"> Wedding Party </AccordionHeader>
                         <AccordionBody accordionId="2">
@@ -111,7 +108,7 @@ export const Details = () => {
                         </AccordionBody>
                     </AccordionItem>
                 </UncontrolledAccordion>
-                
+                </div>
                 </div>   
         }
 

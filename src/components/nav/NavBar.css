@@ -3,6 +3,9 @@
     flex-wrap: nowrap;
     justify-content: right;
     margin-bottom: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: white;
 }
 
 .navbar__item {
@@ -12,5 +15,9 @@
 
 .navbar__logout {
     margin-left: auto;
+}
+
+nav {
+    background-color: white;
 }
 

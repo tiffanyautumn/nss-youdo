@@ -4,7 +4,7 @@ export const Bridesmaid = ({maid, getAllPartiers}) => {
     const maidId = maid.member.id
 
     const deleteButton = () => {
-        return <Button size="sm" onClick={ () => {
+        return <Button outline size="sm" onClick={ () => {
         
                  return fetch (`http://localhost:8088/members/${maidId}`, {
                         method: "DELETE"
@@ -18,7 +18,7 @@ export const Bridesmaid = ({maid, getAllPartiers}) => {
     return <>
     <tr>
         <td>{maid.member.name}</td>
-        <td>{deleteButton()}</td>
+        <td className="deleteButton">{deleteButton()}</td>
     </tr>
     </>
 }

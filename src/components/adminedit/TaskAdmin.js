@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Button, Table } from "reactstrap"
 import { TaskEdit } from "./TaskEdit"
 
-export const TaskAdmin = ({taskObject, getAllTasks}) => {
+export const TaskAdmin = ({taskObject, getAllTasks, categories}) => {
     const [isChecked, setIsChecked] = useState(false)
     const [task, setTasks] =useState([])
     const [formActive, updateFormActive] = useState(false)
@@ -29,7 +29,7 @@ export const TaskAdmin = ({taskObject, getAllTasks}) => {
         if (formActive) {
             return <> <tr>
                 <td><h5>Edit Task</h5></td>
-            <td><TaskEdit updateFormActive={updateFormActive} getAllTasks={getAllTasks} taskObject={taskObject} /></td>
+            <td><TaskEdit updateFormActive={updateFormActive} getAllTasks={getAllTasks} taskObject={taskObject} categories={categories}/></td>
             <td><Button onClick={() => updateFormActive(false) }>Nevermind</Button></td></tr></>
         }
         else {
@@ -59,6 +59,7 @@ export const TaskAdmin = ({taskObject, getAllTasks}) => {
             </td>
             <td>{taskObject.description}</td>
             <td>{taskObject.timeFrame}</td>
+            <td>{taskObject.category.description}</td>
             <td>{deleteButton()}</td>
             <td><Button size="sm" onClick={() => updateFormActive(true) }>Edit</Button></td>
             

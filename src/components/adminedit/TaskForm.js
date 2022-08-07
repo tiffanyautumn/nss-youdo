@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { Button, Card, CardBody, Form, FormGroup, Input, Label } from "reactstrap"
 
-export const TaskForm = ({updateFormActive, getAllTasks}) => {
+export const TaskForm = ({updateFormActive, getAllTasks, categories}) => {
     const [task, update] = useState({
         description: "",
-        timeFrame: 0
+        timeFrame: 0,
+        categoryId: 0
         
     })
 
@@ -14,7 +15,8 @@ export const TaskForm = ({updateFormActive, getAllTasks}) => {
 
         const taskToSend = {
             description: task.description,
-            timeFrame: parseFloat(task.timeFrame)
+            timeFrame: parseFloat(task.timeFrame),
+            categoryId: parseFloat(task.categoryId)
             
         }
     
@@ -33,7 +35,7 @@ export const TaskForm = ({updateFormActive, getAllTasks}) => {
     return <>
     <Card>
     <CardBody>
-    <Form>
+    <Form className="adminForm">
         <FormGroup>
             <Label for="description">Task</Label>
             <Input
@@ -61,6 +63,28 @@ export const TaskForm = ({updateFormActive, getAllTasks}) => {
                         update(copy)
                     }
                 } />
+
+                <Label for="category">Category</Label>
+            <Input
+                id="category"
+                name="category"
+                type="select"
+                onChange={
+                    (evt) => {
+                        const copy = {...task}
+                        copy.categoryId= evt.target.value
+                        update(copy)
+                    }
+                }>
+                    <option>Choose a category</option>
+                    {
+                        categories.map(
+                            (category) => {
+                                return <option key={category.id} value={category.id}>{category.description}</option>
+                            }
+                        )
+                    }
+            </Input>
 
         </FormGroup>
         <Button onClick={(clickEvent) => handleSaveButtonClick(clickEvent)}>

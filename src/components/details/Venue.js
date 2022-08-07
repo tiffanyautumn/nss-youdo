@@ -1,25 +1,36 @@
-import { useEffect, useState } from "react"
-import { Row } from "reactstrap"
+import { Button } from "reactstrap"
 
-export const Venue = ({wedding}) => {
-    const [venue, setVenue] = useState({})
-    const weddingId = wedding.id
-
-    useEffect(
-        () => {
-            fetch (`http://localhost:8088/venues?weddingId=${weddingId}`)
-                .then(response => response.json())
-                .then((data) => {
-                    const venue = data[0]
-                    setVenue(venue)
+export const Venue = ({venue, sites, getAllVenues}) => {
+    const venueId = venue.venue.id
+    const deleteButton = () => {
+        return <Button outline size="sm" onClick={() => {
+        
+                 return fetch (`http://localhost:8088/venues/${venueId}`, {
+                        method: "DELETE"
+                        })
+                .then(() => {
+                    getAllVenues()
                 })
-        },
-        []
-    )
-    
-        return <>
-    
-    <Row><div className="venueName"> <h5> Venue: </h5><span className="venueSpan"><h6>{venue.name}</h6> <h6>{venue.address}</h6></span> </div></Row>
-  
- </>
+        }} >Delete</Button>
+    }
+
+    const SiteType = () => {
+       return sites.map(
+            (site) => {
+                if(site.id === venue.venue.siteId) {
+                    return site.name
+                    
+                }
+            }
+        )
+    }
+    return <>
+    <tr>
+        <td>{SiteType()}</td>
+        <td>{venue?.venue?.name}</td>
+        <td>{venue?.venue?.phoneNum}</td>
+        <td>{venue?.venue?.address}</td>
+        <td className="deleteButton">{deleteButton()}</td>
+    </tr>
+    </>
 }

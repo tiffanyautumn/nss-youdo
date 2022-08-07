@@ -6,12 +6,10 @@ import { Button, ButtonDropdown, Col, Form, FormGroup, FormText, Input, InputGro
 export const DetailsForm = () => {
     const [titles, setTitles] = useState([])
     const [form, update] = useState({
-        partnerName: "",
-        titleId: 0,
-        weddingDate: "",
-        venueName: "",
-        venueAddress: "",
-        venuePhoneNum: ""
+        loverNameA: "",
+        titleIdA: 0,
+        loverNameB: "",
+        titleIdB: 0
     })
     
    
@@ -34,18 +32,26 @@ export const DetailsForm = () => {
         event.preventDefault()
         console.log("You clicked the button")
 
-        const partnerToSend = {
-            name: form.partnerName,
-            titleId: parseFloat(form.titleId)
+        const loverToSendA = {
+            name: form.loverNameA,
+            titleId: parseFloat(form.titleIdA)
         }
+
+        const loverToSendB = {
+            name: form.loverNameB,
+            titleId: parseFloat(form.titleIdB)
+        } 
+
+        const coupleToSendA = {
+
+        }
+
+        const coupleToSendB = {
+
+        }
+
         const weddingToSend = {
             userId: youdoUserObject.id,
-            weddingDate: form.weddingDate
-        }
-        const venueToSend = {
-            name: form.venueName,
-            address: form.venueAddress,
-            phoneNum: form.venuePhoneNum
         }
 
         // TODO: Perform the fetch() to POST the object to the API
@@ -58,34 +64,55 @@ export const DetailsForm = () => {
         })
             .then(response => response.json())
             .then((createdWedding) => {
-                partnerToSend.weddingId = createdWedding.id;
-                venueToSend.weddingId = createdWedding.id;
+                coupleToSendA.weddingId = createdWedding.id;
+                coupleToSendB.weddingId = createdWedding.id;
                 
-                return fetch(`http://localhost:8088/partners`, {
+                return fetch(`http://localhost:8088/lovers`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify(partnerToSend)
+                    body: JSON.stringify(loverToSendA)
                 })
-                
+            })
+                .then(response => response.json())
+                .then((createdlover) => {
+                    coupleToSendA.loverId = createdlover.id 
+                    return fetch(`http://localhost:8088/couples`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(coupleToSendA)
+                })
             })
             .then(() => {
-                return fetch(`http://localhost:8088/venues`, {
+                return fetch(`http://localhost:8088/lovers`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify(venueToSend)
+                    body: JSON.stringify(loverToSendB)
+                })
+                .then(response => response.json())
+                .then((createdlover) => {
+                    coupleToSendB.loverId = createdlover.id 
+                    return fetch(`http://localhost:8088/couples`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(coupleToSendB)
                 })
             })
             .then(() => {
                 navigate("/weddingdetails")
             })
-    }
+    })
+}
     return <Form>
         <FormGroup>
-            <legend className="col-form-label col-sm-2">Partner</legend>
+            <legend className="col-form-label col-sm-2">The Lucky Couple</legend>
             <InputGroup size="">
                 <InputGroupText>
                     <Input
@@ -95,7 +122,7 @@ export const DetailsForm = () => {
                         onChange={
                             (evt) => {
                             const copy = {...form}
-                            copy.titleId = evt.target.value
+                            copy.titleIdA = evt.target.value
                             update(copy)
                             }
                         }>
@@ -103,7 +130,7 @@ export const DetailsForm = () => {
                     {
                         titles.map(
                             (title) => {
-                                return <option value={title.id}>{title.name}</option>
+                                return <option key={`titleoptionA--${title.id}`} value={title.id}>{title.name}</option>
                                         })
                     }
                     </Input>
@@ -115,11 +142,52 @@ export const DetailsForm = () => {
                     name="pname"
                     placeholder="name"
                     type="text"
-                    value={form.partnerName}
+                    value={form.loverNameA}
                     onChange={
                     (evt) => {
                         const copy = {...form}
-                        copy.partnerName = evt.target.value
+                        copy.loverNameA = evt.target.value
+                        update(copy)
+                        }
+                    }/>
+        
+        
+            </InputGroup>
+
+            <InputGroup size="">
+                <InputGroupText>
+                    <Input
+                        name="title"
+                        id="title"
+                        type="select"
+                        onChange={
+                            (evt) => {
+                            const copy = {...form}
+                            copy.titleIdB = evt.target.value
+                            update(copy)
+                            }
+                        }>
+                        <option>title</option>
+                    {
+                        titles.map(
+                            (title) => {
+                                return <option key={`titleoptionB--${title.id}`} value={title.id}>{title.name}</option>
+                                        })
+                    }
+                    </Input>
+                            
+                </InputGroupText>
+
+                <Input
+                    id="partnerName"
+                    name="pname"
+                    placeholder="name"
+                    type="text"
+                    value={form.loverNameB}
+                    onChange={
+                    (evt) => {
+                        const copy = {...form}
+                        copy.loverNameB = evt.target.value
                         update(copy)
                         }
                     }/>
@@ -128,84 +196,7 @@ export const DetailsForm = () => {
             </InputGroup>
         </FormGroup>
 
-    <FormGroup>
-            <h4>Venue</h4>
-            <FormGroup row>
-            <Label for="venueName" sm={2}>Name</Label>
-            <Col sm={10}>
-                <Input
-                id="VenueName"
-                name="name"
-                placeholder="venue"
-                type="text"
-                value={form.venueName}
-                onChange={
-                    (evt) => {
-                        const copy = {...form}
-                        copy.venueName = evt.target.value
-                        update(copy)
-                    }
-                }/>
-            </Col>
-        </FormGroup>
-        <FormGroup row>
-            <Label for="venueAddress" sm={2}>Address </Label>
-            <Col sm={10}>
-                <Input
-                id="exampleText"
-                name="text"
-                type="textarea"
-                value={form.venueAddress}
-                onChange={
-                    (evt) => {
-                        const copy = {...form}
-                        copy.venueAddress = evt.target.value
-                        update(copy)
-                    }
-                }/>
-            </Col>
-        </FormGroup>
-        <FormGroup row>
-            <Label for="phoneNum" sm={2}>Number</Label>
-            <Col sm={10}>
-                <Input
-                id="phoneNum"
-                name="phoneNum"
-                type="tel"
-                value={form.venuePhoneNum}
-                onChange={
-                    (evt) => {
-                        const copy = {...form}
-                        copy.venuePhoneNum = evt.target.value
-                        update(copy)
-                    }
-                }/>
-            </Col>
-        </FormGroup>
-    </FormGroup>
-        
-    <FormGroup row>
-        <h4>Wedding Date</h4>
-    <Label for="weddingDate" sm={2}>Date</Label>
-    <Col sm={10}>
     
-    <Input
-      id="exampleDate"
-      name="date"
-      placeholder="date placeholder"
-      type="date"
-      value={form.weddingDate}
-                onChange={
-                    (evt) => {
-                        const copy = {...form}
-                        copy.weddingDate = evt.target.value
-                        update(copy)
-                    }
-                }
-    />
-    </Col>
-    </FormGroup>
-  
   
       <FormText>
         This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.

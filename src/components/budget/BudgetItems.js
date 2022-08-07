@@ -8,16 +8,16 @@ export const BudgetItems = ({budget, budgetItems, getAllBudgets }) => {
 
     const itemForm = () => {
         if (formActive) {
-            return <> <h5>Add a Vendor</h5>
+            return <> <div className="itemFormHead"><h5>Add an Item</h5>
+            <Button onClick={() => updateFormActive(false) }>Nevermind</Button></div>
             <div><ItemForm updateFormActive={updateFormActive} budget={budget} getAllBudgets={getAllBudgets} /></div>
-            <Button onClick={() => updateFormActive(false) }>Nevermind</Button></>
+            </>
         }
         else {
             return <Button onClick={() => updateFormActive(true) }>Add an Item</Button>
         }
     }
     return <>
-        <h5>Items</h5>
         <div>
         <Table>
             <thead>

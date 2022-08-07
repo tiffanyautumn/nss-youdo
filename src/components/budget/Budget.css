@@ -1,7 +1,6 @@
 .card {
     display: flex;
     justify-content: center;
-    background-color: #1C5546 ;
     text-align: left;
     width: 60%;
 }
@@ -13,6 +12,41 @@
 }
 
 .budgetcard {
+    display: flex;
+    justify-content: center;
+}
+
+.budgetHeader {
+    background-color: white;
+    color: #1C5546;
+    margin-top: 5%;
+    text-align: center;
+    margin-bottom: 4%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    outline: #1C5546 2px solid;
+}
+
+.deleteButton {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.itemForm {
+    width: 100%
+}
+
+.itemFormHead {
+    display: flex;
+    justify-content:space-between;
+}
+
+.BudgetFormButtons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.BudgetItemsDropdown {
     display: flex;
     justify-content: center;
 }
