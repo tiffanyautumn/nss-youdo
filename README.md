@@ -6,11 +6,12 @@
   The goal of this website is to make wedding planning less stressful and more streamlined. 
   
 ## Testing: 
-  In order to test this...
+  In order to test code, pull the code down from github and serve with the command npm start. The API for the website is included in another repository on my profile. Once you are serving the API as well using a JSON server you can create a new user profile and navigate around the website!
   
 ## Help: 
-  
-##
+  If there are any issues that require assistance on the site please feel free to message me through github!
+## Contributions: 
+  A huge thank you to everyone at NSS for supporting me through this project!
   
 
   
