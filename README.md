@@ -13,7 +13,7 @@ cd nss-youdo
 ```
 2.Access And Run The Database
 ```
-git clone git@github.com:WilsonTBell/statslinger-API.git
+git clone git@github.com:tiffanyautumn/nss-youdo-api.git
 json-server -p 8088 database.json -w
 ```
 
@@ -24,15 +24,15 @@ npm start
 ```
 Admin Login
 ```
-wilson@wilson.com
+h@h.com
 ```
 Regular User Login
 ```
 t@t.com
 ```
 ## ERD
-[DB Diagram ERD](https://dbdiagram.io/d/62d17804cc1bc14cc5c7e8f6)
-  In order to test code, pull the code down from github and serve with the command npm start. The API for the website is included in another repository on my profile. Once you are serving the API as well using a JSON server you can create a new user profile and navigate around the website!
+[DB Diagram ERD]([https://dbdiagram.io/d/62d17804cc1bc14cc5c7e8f6](https://lucid.app/lucidchart/724191d0-9b41-469d-ad40-fe5527e7397c/edit?viewport_loc=-1144%2C-252%2C3280%2C1598%2C0_0&invitationId=inv_9c86d1e9-d2ea-46d4-b1d1-a2dd41ce91fd#))
+  
  
 ##  Technologies Used
 ![image](https://user-images.githubusercontent.com/105528673/183157779-a08151c2-07d4-469a-b1bf-fa409416d6ea.png)
