@@ -8,8 +8,8 @@
 ## Testing: 
 1. Clone This Repository And Change To The Directory In The Terminal.
 ```
-git clone git@github.com:WilsonTBell/StatSlinger.git
-cd StatSlinger
+git clone git@github.com:tiffanyautumn/nss-youdo.git
+cd nss-youdo
 ```
 2.Access And Run The Database
 ```
